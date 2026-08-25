@@ -1,16 +1,14 @@
-## Hi there 👋
+pdt: Mejoraré esto
 
-<!--
-**TheCubick/TheCubick** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+## Bienvenidos a mi perfil 😊
 
-Here are some ideas to get you started:
+Espacio que usaré para subir proyectos escolares y personales.
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+Trabajo Con algunos lenguajes, aunque no al 100%
+
+- C++
+- Python
+- Html
+- SQL
+
+
