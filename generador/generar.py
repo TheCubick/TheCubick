@@ -32,12 +32,17 @@ if "--mascota" in sys.argv:
     MASCOTA = sys.argv[sys.argv.index("--mascota") + 1]
 
 # ----------------------------------------------------------------- paleta
+# Ancho común de todas las piezas: en el móvil de GitHub el README mide ~293 px, así que
+# 560 px de diseño (escala ~0.52) con letras grandes se sigue leyendo.
+W0 = 560
+
 C = dict(
-    # Paleta Squirtle: aqua (piel), naranja (caparazón) y crema (vientre) sobre fondo oscuro verdoso
-    bg="#0d1117", bg2="#0b2128", card="#0f1c20", card2="#16292e", border="#244048",
-    aqua="#5fcdbd", lav="#a6e3d9", lav2="#e4f7f3", deep="#1f8f93", ink="#0a1a1e",
-    shell="#f59e42", cyan="#7dd3fc", green="#4ade80", cream="#f3d98b",
-    text="#e8f6f3", muted="#8fa9ad",
+    # Squirtle sobre fondo azul petróleo: esmeralda (#10b981) y celeste (#38bdf8) como acentos,
+    # con el naranja del caparazón solo en detalles pequeños.
+    bg="#0d1117", bg2="#0a1216", card="#0d161a", card2="#14242a", border="#1f3a42",
+    aqua="#10b981", lav="#9be7cc", lav2="#e6f3f1", deep="#0b6e5a", ink="#081014",
+    shell="#f59e42", cyan="#38bdf8", green="#34d399", cream="#f3d98b",
+    text="#e6f3f1", muted="#9db6ba",
 )
 SANS = "'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif"
 MONO = "Consolas,'SFMono-Regular','Liberation Mono',Menlo,monospace"
@@ -336,59 +341,59 @@ def sparkle(x, y, s, color, delay=0.0):
 
 
 # ============================================================== BANNER
+def chip(x, y, label, color=None, dot=None, size=16):
+    w = len(label) * size * .54 + 28 + (18 if dot else 0)
+    out = [f'<rect x="{x}" y="{y}" width="{w:.0f}" height="34" rx="10" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>']
+    tx = x + 14
+    if dot:
+        out.append(f'<rect x="{tx}" y="{y + 13}" width="8" height="8" fill="{dot}" class="pulse"/>')
+        tx += 18
+    out.append(f'<text x="{tx}" y="{y + 22}" font-family="{SANS}" font-size="{size}" font-weight="600" fill="{color or C["muted"]}">{esc(label)}</text>')
+    return "".join(out), w
+
+
 def banner():
-    W, H = 1200, 340
+    W, H = W0, 380
     rnd = random.Random(7)
-    b = [f'''<defs>
-<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{C["bg"]}"/><stop offset="1" stop-color="{C["bg2"]}"/></linearGradient>
-<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{C["aqua"]}" stop-opacity=".45"/><stop offset="1" stop-color="{C["aqua"]}" stop-opacity="0"/></radialGradient>
-<linearGradient id="line" x1="0" x2="1"><stop offset="0" stop-color="{C["aqua"]}"/><stop offset=".6" stop-color="{C["shell"]}"/><stop offset="1" stop-color="{C["shell"]}" stop-opacity="0"/></linearGradient>
-</defs>
-<rect width="{W}" height="{H}" rx="22" fill="url(#bg)"/>''']
+    b = ['<defs>'
+         f'<linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{C["bg2"]}"/><stop offset="1" stop-color="{C["card"]}"/></linearGradient>'
+         f'<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{C["aqua"]}" stop-opacity=".34"/><stop offset="1" stop-color="{C["aqua"]}" stop-opacity="0"/></radialGradient>'
+         f'<linearGradient id="line" x1="0" x2="1"><stop offset="0" stop-color="{C["aqua"]}"/><stop offset=".6" stop-color="{C["cyan"]}"/><stop offset="1" stop-color="{C["cyan"]}" stop-opacity="0"/></linearGradient>'
+         '</defs>',
+         f'<rect width="{W}" height="{H}" rx="22" fill="url(#bg)"/>']
     # estrellas pixel
-    for i in range(80):
-        x, y = rnd.randint(10, W - 10), rnd.randint(10, H - 70)
+    for i in range(55):
+        x, y = rnd.randint(10, W - 10), rnd.randint(10, H - 90)
         sz = rnd.choice([2, 2, 3, 4])
-        colr = rnd.choice([C["lav"], C["lav2"], C["shell"], "#ffffff"])
+        colr = rnd.choice([C["lav"], C["lav2"], C["cyan"], "#ffffff"])
         tw = f' class="tw" style="animation-delay:{rnd.random() * 2.4:.2f}s"' if i % 3 == 0 else ""
         b.append(f'<rect x="{x}" y="{y}" width="{sz}" height="{sz}" fill="{colr}" opacity="{rnd.uniform(.25, .8):.2f}"{tw}/>')
     # piso synthwave sutil
-    for i, y in enumerate([288, 297, 308, 321, 336]):
-        b.append(f'<rect x="0" y="{y}" width="{W}" height="2" fill="{C["aqua"]}" opacity="{.10 + i * .03:.2f}"/>')
-    for x in range(-600, 1800, 120):
-        b.append(f'<line x1="{960 + (x - 960) * .25:.0f}" y1="280" x2="{x}" y2="{H}" stroke="{C["aqua"]}" stroke-opacity=".12" stroke-width="2" shape-rendering="auto"/>')
-    b.append(f'<rect x="0" y="278" width="{W}" height="3" fill="url(#line)" opacity=".7"/>')
-    # textos
-    b.append(ptext("> HOLA, SOY", 70, 62, 3, C["shell"]))
-    b.append(ptext("PABLO RAMÍREZ", 76, 112, 8, C["deep"]))
-    b.append(ptext("PABLO RAMÍREZ", 70, 106, 8, C["text"]))
-    sub = "FULL-STACK DEV  //  COMPUTER VISION"
-    b.append(ptext(sub, 72, 196, 3, C["lav"]))
-    cx = 72 + ptext_w(sub, 3) + 10
-    b.append(f'<rect x="{cx}" y="193" width="12" height="24" fill="{C["shell"]}" class="cursor"/>')
-    # chips
-    chips = [("CHIAPAS, MX", C["muted"], None), ("ING. EN SISTEMAS", C["muted"], None),
-             ("ABIERTO A PRÁCTICAS", C["green"], C["green"])]
-    x = 72
-    for label, colr, dot in chips:
-        tw = ptext_w(label, 2)
-        pad = 14 + (16 if dot else 0)
-        w = tw + pad + 14
-        b.append(f'<rect x="{x}" y="232" width="{w}" height="30" rx="8" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>')
-        tx = x + 14
-        if dot:
-            b.append(f'<rect x="{tx}" y="243" width="8" height="8" fill="{dot}" class="pulse"/>')
-            tx += 16
-        b.append(ptext(label, tx, 240, 2, colr))
-        x += w + 12
+    hz = 336
+    for i, y in enumerate([344, 353, 364]):
+        b.append(f'<rect x="0" y="{y}" width="{W}" height="2" fill="{C["aqua"]}" opacity="{.12 + i * .04:.2f}"/>')
+    for x in range(-500, 1300, 90):
+        b.append(f'<line x1="{450 + (x - 450) * .25:.0f}" y1="{hz + 2}" x2="{x}" y2="{H}" stroke="{C["aqua"]}" stroke-opacity=".14" stroke-width="2" shape-rendering="auto"/>')
+    b.append(f'<rect x="0" y="{hz - 2}" width="{W}" height="3" fill="url(#line)" opacity=".7"/>')
+    # textos (todo en bloques grandes para que se lea en el móvil)
+    b.append(ptext("> HOLA, SOY", 40, 32, 3, C["shell"]))
+    b.append(ptext("PABLO RAMÍREZ", 46, 82, 6, C["deep"]))
+    b.append(ptext("PABLO RAMÍREZ", 40, 76, 6, C["text"]))
+    b.append(ptext("FULL-STACK DEV", 40, 150, 3, C["lav"]))
+    l2 = "COMPUTER VISION"
+    b.append(ptext(l2, 40, 182, 3, C["lav"]))
+    b.append(f'<rect x="{40 + ptext_w(l2, 3) + 10}" y="180" width="12" height="25" fill="{C["shell"]}" class="cursor"/>')
+    c1, _ = chip(40, 238, "Ing. en Sistemas · Chiapas, MX")
+    c2, _ = chip(40, 282, "Abierto a prácticas", C["green"], C["green"])
+    b += [c1, c2]
     # mascota + brillo
-    b.append(f'<ellipse cx="985" cy="150" rx="190" ry="150" fill="url(#glow)"/>')
-    m_svg, m_css = mascot(985, 226, 224, "gb")
+    b.append(f'<ellipse cx="452" cy="250" rx="150" ry="130" fill="url(#glow)"/>')
+    m_svg, m_css = mascot(452, 326, 196, "gb")
     b.append(m_svg)
-    b.append(sparkle(830, 60, 5, C["shell"], 0))
-    b.append(sparkle(1110, 40, 4, C["lav"], .8))
-    b.append(sparkle(1130, 190, 5, C["cyan"], 1.4))
-    b.append(sparkle(845, 205, 3, C["lav2"], 1.9))
+    b.append(sparkle(350, 146, 5, C["shell"], 0))
+    b.append(sparkle(535, 128, 4, C["lav"], .8))
+    b.append(sparkle(540, 240, 5, C["cyan"], 1.4))
+    b.append(sparkle(362, 300, 3, C["lav2"], 1.9))
     style = CUBE_CSS + m_css + """
 .cursor{animation:cur 1s steps(1) infinite}@keyframes cur{50%{opacity:0}}
 .pulse{animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{50%{opacity:.25}}
@@ -413,17 +418,17 @@ def mascota():
 
 # ================================================ ENCABEZADOS DE SECCIÓN
 def header(name, icon, title, subtitle):
-    W, H = 1000, 88
+    W, H = W0, 64
     rows, colors = ICONS[icon]
     b = [f'<defs><linearGradient id="l" x1="0" x2="1"><stop offset="0" stop-color="{C["aqua"]}"/>'
-         f'<stop offset=".5" stop-color="{C["shell"]}"/><stop offset="1" stop-color="{C["shell"]}" stop-opacity="0"/></linearGradient></defs>',
+         f'<stop offset=".5" stop-color="{C["cyan"]}"/><stop offset="1" stop-color="{C["cyan"]}" stop-opacity="0"/></linearGradient></defs>',
          f'<rect width="{W}" height="{H}" rx="16" fill="{C["card"]}"/>',
-         f'<rect x="20" y="16" width="56" height="56" rx="12" fill="{C["card2"]}" stroke="{C["border"]}" stroke-width="2"/>',
-         bitmap(rows, 28, 24, 5, colors),
-         ptext(title, 98, 27, 5, C["text"])]
-    tx = 98 + ptext_w(title, 5) + 22
-    b.append(f'<text x="{tx}" y="58" font-family="{MONO}" font-size="18" fill="{C["muted"]}">{esc(subtitle)}</text>')
-    b.append(f'<rect x="20" y="{H - 5}" width="{W - 40}" height="3" fill="url(#l)"/>')
+         f'<rect x="14" y="9" width="44" height="44" rx="10" fill="{C["card2"]}" stroke="{C["border"]}" stroke-width="2"/>',
+         bitmap(rows, 16, 11, 5, colors),
+         ptext(title, 72, 24, 4, C["text"])]
+    tx = 72 + ptext_w(title, 4) + 20
+    b.append(f'<text x="{tx}" y="44" font-family="{MONO}" font-size="16" fill="{C["muted"]}">{esc(subtitle)}</text>')
+    b.append(f'<rect x="14" y="{H - 6}" width="{W - 28}" height="3" fill="url(#l)"/>')
     save(f"titulo-{name}.svg", svg(W, H, "\n".join(b)))
 
 
@@ -439,59 +444,69 @@ def wrap(text, maxc):
     return lines + ([cur] if cur else [])
 
 
-def pills(items, x0, y0, maxw, size=15, h=36, gap=10, stroke=C["aqua"], fill="none", color=C["lav"], cw=8.1):
+def pills(items, x0, y0, maxw, size=16, h=36, gap=10, stroke=None, fill="none", color=None, cw=8.8):
+    stroke = stroke or C["aqua"]
+    color = color or C["lav"]
     out, x, y = [], x0, y0
     for it in items:
         w = len(it) * cw + 30
-        if x + w > x0 + maxw:
+        if x + w > x0 + maxw and x > x0:
             x, y = x0, y + h + gap
         out.append(f'<rect x="{x:.0f}" y="{y}" width="{w:.0f}" height="{h}" rx="{h // 2}" fill="{fill}" stroke="{stroke}" stroke-width="2"/>')
         out.append(f'<text x="{x + w / 2:.0f}" y="{y + h / 2 + size * .35:.0f}" text-anchor="middle" font-family="{SANS}" '
                    f'font-size="{size}" font-weight="600" fill="{color}">{esc(it)}</text>')
         x += w + gap
-    return "".join(out)
+    return "".join(out), y + h
 
 
 def bento():
-    W, H = 1000, 600
-    b = [f'''<defs>
-<linearGradient id="mis" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e3a45"/><stop offset=".55" stop-color="#14575c"/><stop offset="1" stop-color="#7a4317"/></linearGradient>
-<radialGradient id="blob" cx=".85" cy=".2" r=".6"><stop offset="0" stop-color="{C["shell"]}" stop-opacity=".35"/><stop offset="1" stop-color="{C["shell"]}" stop-opacity="0"/></radialGradient>
-</defs>''']
-    # --- STATUS
-    b.append(f'<rect x="0" y="0" width="380" height="270" rx="22" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>')
-    b.append(ptext("STATUS", 30, 32, 3, C["muted"]))
-    b.append(f'<rect x="30" y="78" width="16" height="16" fill="{C["green"]}" class="pulse"/>')
-    b.append(f'<rect x="26" y="74" width="24" height="24" fill="none" stroke="{C["green"]}" stroke-width="2" opacity=".4" class="pulse"/>')
-    b.append(ptext("DISPONIBLE", 64, 72, 4, C["green"]))
-    b.append(f'<text x="30" y="138" font-family="{SANS}" font-size="19" font-weight="600" fill="{C["text"]}">Buscando prácticas / internship</text>')
+    W = W0
+    b = [f'<defs>'
+         f'<linearGradient id="mis" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0a3a35"/><stop offset=".55" stop-color="#0c4658"/><stop offset="1" stop-color="#6b3b14"/></linearGradient>'
+         f'<radialGradient id="blob" cx=".9" cy=".1" r=".6"><stop offset="0" stop-color="{C["shell"]}" stop-opacity=".30"/><stop offset="1" stop-color="{C["shell"]}" stop-opacity="0"/></radialGradient>'
+         f'</defs>']
+    card = f'fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"'
+    # ---- STATUS
+    y0, h = 0, 246
+    b.append(f'<rect x="1" y="{y0 + 1}" width="{W - 2}" height="{h - 2}" rx="22" {card}/>')
+    b.append(ptext("STATUS", 28, 26, 3, C["muted"]))
+    b.append(f'<rect x="28" y="72" width="18" height="18" fill="{C["green"]}" class="pulse"/>')
+    b.append(f'<rect x="24" y="68" width="26" height="26" fill="none" stroke="{C["green"]}" stroke-width="2" opacity=".4" class="pulse"/>')
+    b.append(ptext("DISPONIBLE", 62, 66, 5, C["green"]))
+    b.append(f'<text x="28" y="138" font-family="{SANS}" font-size="22" font-weight="700" fill="{C["text"]}">Buscando prácticas / internship</text>')
     for i, t in enumerate(["Chiapas, México", "Ing. en Sistemas · IESCH", "Full-Stack + Computer Vision"]):
-        y = 178 + i * 30
-        b.append(f'<rect x="30" y="{y - 11}" width="8" height="8" fill="{C["aqua"]}"/>')
-        b.append(f'<text x="50" y="{y}" font-family="{MONO}" font-size="16" fill="{C["muted"]}">{esc(t)}</text>')
-    # --- SUPERPODERES
-    b.append(f'<rect x="400" y="0" width="600" height="270" rx="22" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>')
-    b.append(ptext("SUPERPODERES", 430, 32, 3, C["muted"]))
-    b.append(bitmap(ICONS["spark"][0], 940, 26, 4, ICONS["spark"][1]))
-    b.append(pills(["Full-Stack", "Visión por computadora", "Liderazgo de equipos", "Arquitectura de software",
-                    "Sistemas en tiempo real", "UI / UX", "Producto digital", "Docker"], 430, 74, 540))
-    # --- MISIÓN
-    b.append(f'<rect x="0" y="290" width="1000" height="310" rx="22" fill="url(#mis)"/>')
-    b.append(f'<rect x="0" y="290" width="1000" height="310" rx="22" fill="url(#blob)"/>')
-    b.append(ptext("MI MISIÓN", 30, 324, 3, C["lav"]))
-    b.append(f'<text x="30" y="404" font-family="{SANS}" font-size="34" font-weight="800" fill="#ffffff">'
-             f'La tecnología solo es buena si llega a todos.</text>')
+        y = 172 + i * 26
+        b.append(f'<rect x="28" y="{y - 11}" width="9" height="9" fill="{C["aqua"]}"/>')
+        b.append(f'<text x="50" y="{y}" font-family="{MONO}" font-size="17" fill="{C["muted"]}">{esc(t)}</text>')
+    # ---- SUPERPODERES
+    y0 = h + 16
+    b.append(ptext("SUPERPODERES", 28, y0 + 26, 3, C["muted"]))
+    b.append(bitmap(ICONS["spark"][0], W - 64, y0 + 20, 4, ICONS["spark"][1]))
+    p_svg, p_bot = pills(["Full-Stack", "Visión por computadora", "Liderazgo de equipos", "Arquitectura de software",
+                          "Sistemas en tiempo real", "UI / UX", "Producto digital", "Docker"], 28, y0 + 64, W - 56)
+    h2 = p_bot - y0 + 22
+    b.insert(1, f'<rect x="1" y="{y0 + 1}" width="{W - 2}" height="{h2 - 2}" rx="22" {card}/>')
+    b.append(p_svg)
+    # ---- MISIÓN
+    y0 = y0 + h2 + 16
     cols = [("hand", "ACCESIBILIDAD", "IA que traduce la Lengua", "de Señas Mexicana"),
             ("qr", "NEGOCIOS LOCALES", "SaaS para restaurantes", "sin cobrar comisiones"),
             ("build", "INSTITUCIONES", "Trámites y accesos,", "por fin digitales")]
+    h3 = 154 + len(cols) * 108 + 6
+    b.append(f'<rect x="0" y="{y0}" width="{W}" height="{h3}" rx="22" fill="url(#mis)"/>')
+    b.append(f'<rect x="0" y="{y0}" width="{W}" height="{h3}" rx="22" fill="url(#blob)"/>')
+    b.append(ptext("MI MISIÓN", 28, y0 + 28, 3, C["lav"]))
+    for i, line in enumerate(["La tecnología solo es buena", "si llega a todos."]):
+        b.append(f'<text x="28" y="{y0 + 88 + i * 38}" font-family="{SANS}" font-size="32" font-weight="800" fill="#ffffff">{esc(line)}</text>')
     for i, (ic, t, l1, l2) in enumerate(cols):
-        x = 30 + i * 320
-        b.append(f'<rect x="{x}" y="440" width="300" height="130" rx="16" fill="#ffffff" fill-opacity=".06" stroke="#ffffff" stroke-opacity=".12" stroke-width="2"/>')
-        b.append(f'<rect x="{x + 18}" y="458" width="52" height="52" rx="12" fill="{C["ink"]}" fill-opacity=".6"/>')
-        b.append(bitmap(ICONS[ic][0], x + 22, 462, 5, ICONS[ic][1]))
-        b.append(ptext(t, x + 86, 470, 2, "#ffffff"))
-        b.append(f'<text x="{x + 86}" y="510" font-family="{SANS}" font-size="15" fill="{C["lav2"]}" fill-opacity=".85">{esc(l1)}</text>')
-        b.append(f'<text x="{x + 86}" y="531" font-family="{SANS}" font-size="15" fill="{C["lav2"]}" fill-opacity=".85">{esc(l2)}</text>')
+        y = y0 + 154 + i * 108
+        b.append(f'<rect x="28" y="{y}" width="{W - 56}" height="96" rx="16" fill="#ffffff" fill-opacity=".07" stroke="#ffffff" stroke-opacity=".14" stroke-width="2"/>')
+        b.append(f'<rect x="44" y="{y + 18}" width="60" height="60" rx="12" fill="{C["ink"]}" fill-opacity=".6"/>')
+        b.append(bitmap(ICONS[ic][0], 50, y + 24, 5, ICONS[ic][1]))
+        b.append(ptext(t, 122, y + 22, 3, "#ffffff"))
+        b.append(f'<text x="122" y="{y + 66}" font-family="{SANS}" font-size="17" fill="{C["lav2"]}" fill-opacity=".92">{esc(l1)}</text>')
+        b.append(f'<text x="122" y="{y + 87}" font-family="{SANS}" font-size="17" fill="{C["lav2"]}" fill-opacity=".92">{esc(l2)}</text>')
+    H = y0 + h3
     style = ".pulse{animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{50%{opacity:.3}}"
     save("bento.svg", svg(W, H, "\n".join(b), style))
 
@@ -513,42 +528,49 @@ PROJECTS = [
 ]
 
 
-def project_card(key, num, icon, title, chip, desc, tags, foot):
-    W, H = 500, 310
+def project_card(key, num, icon, title, chip_, desc, tags, foot):
+    W = W0
     rows, colors = ICONS[icon]
-    chip_t, chip_c = chip
+    chip_t, chip_c = chip_
+    lines = wrap(desc, 44)
+    desc_y = 142
+    last = desc_y + (len(lines) - 1) * 29
+    t_svg, t_bot = pills(tags, 26, last + 24, W - 52, size=15, h=32, gap=8, stroke=C["border"],
+                         fill=C["card2"], color=C["lav"], cw=8.4)
+    sep = t_bot + 24
+    H = sep + 62
     b = [f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="20" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>',
          f'<rect x="26" y="26" width="64" height="64" rx="14" fill="{C["card2"]}" stroke="{C["border"]}" stroke-width="2"/>',
          bitmap(rows, 35, 35, 5, colors),
-         ptext("PROYECTO " + num, 108, 28, 2, C["muted"]),
-         ptext(title, 108, 46, 3, C["text"])]
-    cw = len(chip_t) * 8.6 + 40
-    b.append(f'<rect x="108" y="74" width="{cw:.0f}" height="26" rx="13" fill="{chip_c}" fill-opacity=".14" stroke="{chip_c}" stroke-opacity=".55" stroke-width="1.5"/>')
-    b.append(f'<rect x="120" y="84" width="7" height="7" fill="{chip_c}"/>')
-    b.append(f'<text x="134" y="92" font-family="{SANS}" font-size="12" font-weight="700" letter-spacing=".6" fill="{chip_c}">{esc(chip_t)}</text>')
-    for i, line in enumerate(wrap(desc, 54)):
-        b.append(f'<text x="26" y="{140 + i * 24}" font-family="{SANS}" font-size="16" fill="{C["muted"]}">{esc(line)}</text>')
-    b.append(pills(tags, 26, 216, 450, size=13, h=28, gap=8, stroke=C["border"], fill=C["card2"], color=C["lav"], cw=7.2))
-    b.append(f'<rect x="26" y="262" width="{W - 52}" height="1.5" fill="{C["border"]}"/>')
-    b.append(f'<text x="26" y="290" font-family="{MONO}" font-size="14" fill="{C["muted"]}">{esc(foot)}</text>')
-    b.append(f'<text x="{W - 26}" y="290" text-anchor="end" font-family="{MONO}" font-size="14" font-weight="700" fill="{C["shell"]}">ver repo -&gt;</text>')
+         ptext(title, 108, 32, 3, C["text"])]
+    cw = len(chip_t) * 8.8 + 44
+    b.append(f'<rect x="108" y="68" width="{cw:.0f}" height="28" rx="14" fill="{chip_c}" fill-opacity=".14" stroke="{chip_c}" stroke-opacity=".6" stroke-width="1.5"/>')
+    b.append(f'<rect x="120" y="78" width="8" height="8" fill="{chip_c}"/>')
+    b.append(f'<text x="136" y="87" font-family="{SANS}" font-size="15" font-weight="700" letter-spacing=".5" fill="{chip_c}">{esc(chip_t)}</text>')
+    for i, line in enumerate(lines):
+        b.append(f'<text x="26" y="{desc_y + i * 29}" font-family="{SANS}" font-size="19" fill="{C["text"]}" fill-opacity=".86">{esc(line)}</text>')
+    b.append(t_svg)
+    b.append(f'<rect x="26" y="{sep}" width="{W - 52}" height="1.5" fill="{C["border"]}"/>')
+    b.append(f'<text x="26" y="{sep + 34}" font-family="{MONO}" font-size="16" fill="{C["muted"]}">{esc(foot)}</text>')
+    b.append(f'<text x="{W - 26}" y="{sep + 34}" text-anchor="end" font-family="{MONO}" font-size="16" font-weight="700" fill="{C["shell"]}">ver repo -&gt;</text>')
     save(f"proyecto-{key}.svg", svg(W, H, "\n".join(b)))
 
 
 # ================================================================ FOOTER
 def footer():
-    W, H = 1000, 210
-    m_svg, m_css = mascot(146, 168, 168, "gf")
-    b = [f'<rect width="{W}" height="{H}" rx="22" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>',
-         f'<defs><radialGradient id="g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{C["aqua"]}" stop-opacity=".35"/>'
+    W, H = W0, 236
+    m_svg, m_css = mascot(112, 198, 150, "gf")
+    b = [f'<rect x="1" y="1" width="{W - 2}" height="{H - 2}" rx="22" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>',
+         f'<defs><radialGradient id="g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{C["aqua"]}" stop-opacity=".30"/>'
          f'<stop offset="1" stop-color="{C["aqua"]}" stop-opacity="0"/></radialGradient></defs>',
-         f'<circle cx="140" cy="100" r="105" fill="url(#g)"/>',
+         f'<circle cx="112" cy="122" r="100" fill="url(#g)"/>',
          m_svg,
-         sparkle(40, 30, 3, C["shell"], 0), sparkle(250, 40, 3, C["lav"], 1.1),
-         ptext("¡GRACIAS POR VISITAR!", 290, 66, 5, C["text"]),
-         f'<text x="292" y="132" font-family="{MONO}" font-size="19" fill="{C["muted"]}">nos vemos en el próximo commit</text>',
-         f'<rect x="{292 + 30 * 10.5:.0f}" y="116" width="11" height="20" fill="{C["shell"]}" class="cursor"/>',
-         ptext("HECHO EN CHIAPAS, MX", 292, 160, 2, C["aqua"])]
+         sparkle(30, 34, 3, C["shell"], 0), sparkle(168, 44, 3, C["lav"], 1.1),
+         ptext("¡GRACIAS", 204, 42, 4, C["text"]),
+         ptext("POR VISITAR!", 204, 84, 4, C["text"]),
+         f'<text x="206" y="152" font-family="{MONO}" font-size="17" fill="{C["muted"]}">nos vemos en el próximo commit</text>',
+         f'<rect x="{206 + 30 * 10.2:.0f}" y="137" width="11" height="20" fill="{C["shell"]}" class="cursor"/>',
+         f'<text x="206" y="188" font-family="{MONO}" font-size="16" fill="{C["aqua"]}">hecho en Chiapas, MX</text>']
     style = CUBE_CSS + m_css + ".cursor{animation:cur 1s steps(1) infinite}@keyframes cur{50%{opacity:0}}"
     save("footer.svg", svg(W, H, "\n".join(b), style))
 
