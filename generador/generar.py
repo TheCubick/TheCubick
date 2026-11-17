@@ -33,10 +33,11 @@ if "--mascota" in sys.argv:
 
 # ----------------------------------------------------------------- paleta
 C = dict(
-    bg="#0d1117", bg2="#170f2c", card="#151221", card2="#1d1730", border="#2b2442",
-    purple="#8b5cf6", lav="#c4b5fd", lav2="#ede9fe", deep="#6d28d9", ink="#1b1430",
-    pink="#f472b6", cyan="#22d3ee", green="#34d399", amber="#fbbf24",
-    text="#ece8f7", muted="#9a93b5",
+    # Paleta Squirtle: aqua (piel), naranja (caparazón) y crema (vientre) sobre fondo oscuro verdoso
+    bg="#0d1117", bg2="#0b2128", card="#0f1c20", card2="#16292e", border="#244048",
+    aqua="#5fcdbd", lav="#a6e3d9", lav2="#e4f7f3", deep="#1f8f93", ink="#0a1a1e",
+    shell="#f59e42", cyan="#7dd3fc", green="#4ade80", cream="#f3d98b",
+    text="#e8f6f3", muted="#8fa9ad",
 )
 SANS = "'Segoe UI','Helvetica Neue',Helvetica,Arial,sans-serif"
 MONO = "Consolas,'SFMono-Regular','Liberation Mono',Menlo,monospace"
@@ -164,23 +165,23 @@ def save(name, content):
 # ------------------------------------------------------------ iconos pixel
 ICONS = {
     "smile": ([" ###### ", "########", "##o##o##", "########", "#o####o#", "##oooo##", "########", " ###### "],
-              {"#": C["purple"], "o": C["ink"]}),
+              {"#": C["aqua"], "o": C["ink"]}),
     "layers": (["  ####  ", "########", "  ####  ", "        ", "  aaaa  ", "aaaaaaaa", "  aaaa  ", "        "],
-               {"#": C["lav"], "a": C["purple"]}),
+               {"#": C["lav"], "a": C["aqua"]}),
     "folder": (["###     ", "#aa#####", "#aaaaaa#", "#aaaaaa#", "#aaaaaa#", "#aaaaaa#", "########", "        "],
-               {"#": C["purple"], "a": C["deep"]}),
+               {"#": C["aqua"], "a": C["deep"]}),
     "chart": (["      ##", "      ##", "   aa ##", "   aa ##", "pp aa ##", "pp aa ##", "pp aa ##", "########"],
-              {"#": C["purple"], "a": C["lav"], "p": C["pink"]}),
+              {"#": C["aqua"], "a": C["lav"], "p": C["shell"]}),
     "mail": (["        ", "########", "#a####a#", "##a##a##", "###aa###", "########", "########", "        "],
-             {"#": C["purple"], "a": C["lav2"]}),
+             {"#": C["aqua"], "a": C["lav2"]}),
     "spark": (["   #    ", "   #    ", "  ###   ", "#######", "  ###   ", "   #    ", "   #    ", "        "],
-              {"#": C["pink"]}),
+              {"#": C["shell"]}),
     "qr": (["###.#.###", "#.#..#.#.", "###.#.###", "..#.##...", "#.##..#.#", ".#..#.##.", "###..#.#.",
             "#.#.##..#", "###.#.##."], {"#": C["lav2"]}),
     "hand": (["  # # #  ", "  # # #  ", "  # # # #", "# ##### #", "# #######", "#########", " ########",
               "  ###### ", "   ####  "], {"#": C["lav2"]}),
     "shield": (["#########", "#aaa#aaa#", "#a#aaa#a#", "#aaa#aaa#", "#aaaaaaa#", " #aaaaa# ", "  #aaa#  ",
-                "   #a#   ", "    #    "], {"#": C["lav2"], "a": C["purple"]}),
+                "   #a#   ", "    #    "], {"#": C["lav2"], "a": C["aqua"]}),
     "build": (["    #    ", "  #####  ", "#########", " #  #  # ", " #  #  # ", " #  #  # ", " #  #  # ",
                "#########", "#########"], {"#": C["lav2"]}),
 }
@@ -210,34 +211,34 @@ def cube_svg_parts(ox, oy, s):
                 if inside(poly, gx + .5, gy + .5):
                     cells[(gx, gy)] = k
                     break
-    col = {"t": C["lav"], "l": C["purple"], "r": C["deep"]}
+    col = {"t": C["lav"], "l": C["aqua"], "r": C["deep"]}
     groups = {}
     for (gx, gy), k in cells.items():
         c = col[k]
         if k == "t" and (gx, gy - 1) not in cells:
             c = C["lav2"]                      # brillo en el borde superior
         if k == "l" and (gx - 1, gy) not in cells:
-            c = "#a78bfa"                      # luz lateral izquierda
+            c = "#8fe3d6"                      # luz lateral izquierda
         if k == "r" and ((gx, gy - 1) in cells and cells[(gx, gy - 1)] == "t"):
-            c = "#7c3aed"
+            c = "#2a9d9d"
         groups.setdefault(c, []).append(rect(ox + gx * s, oy + gy * s, s, s))
     # carita en la cara izquierda (sigue la pendiente isométrica)
-    face = {"#2a1f47": [(5, 10), (5, 11), (9, 12), (9, 13)]}
+    face = {"#1a2e33": [(5, 10), (5, 11), (9, 12), (9, 13)]}
     blush = [(4, 13), (10, 16)]
     mouth = [(6, 14), (7, 15), (8, 15)]
     for (gx, gy) in blush:
-        groups.setdefault(C["pink"], []).append(rect(ox + gx * s, oy + gy * s, s, s))
+        groups.setdefault(C["shell"], []).append(rect(ox + gx * s, oy + gy * s, s, s))
     for (gx, gy) in mouth:
-        groups.setdefault("#2a1f47", []).append(rect(ox + gx * s, oy + gy * s, s, s))
+        groups.setdefault("#1a2e33", []).append(rect(ox + gx * s, oy + gy * s, s, s))
     body = "".join(f'<path d="{"".join(d)}" fill="{c}"/>' for c, d in groups.items())
-    eyes = "".join(rect(ox + gx * s, oy + gy * s, s, s) for gx, gy in face["#2a1f47"])
-    eyes_open = f'<path class="eyes" d="{eyes}" fill="#2a1f47"/>'
+    eyes = "".join(rect(ox + gx * s, oy + gy * s, s, s) for gx, gy in face["#1a2e33"])
+    eyes_open = f'<path class="eyes" d="{eyes}" fill="#1a2e33"/>'
     # destello blanco en los ojos
     glint = "".join(rect(ox + gx * s + s * .5, oy + gy * s, s * .5, s * .5) for gx, gy in [(5, 10), (9, 12)])
     eyes_open += f'<path class="eyes" d="{glint}" fill="#ffffff"/>'
     shadow = "".join(rect(ox + gx * s, oy + 22 * s, s, s) for gx in range(6, 18))
     shadow += "".join(rect(ox + gx * s, oy + 23 * s, s, s) for gx in range(8, 16))
-    return body, eyes_open, f'<path class="shadow" d="{shadow}" fill="{C["purple"]}" opacity=".22"/>'
+    return body, eyes_open, f'<path class="shadow" d="{shadow}" fill="{C["aqua"]}" opacity=".22"/>'
 
 
 CUBE_CSS = """
@@ -316,7 +317,7 @@ def gengar(cx, bottom, w, uid):
                     f'opacity="{1 if i == 0 else 0}"{"" if smooth else " style=" + chr(34) + "image-rendering:pixelated" + chr(34)} href="data:image/png;base64,{b64}"/>')
     sw = round(w * .5 / 6) * 6
     shadow = rect(cx - sw / 2, bottom + 2, sw, 6) + rect(cx - sw / 2 + 12, bottom + 8, sw - 24, 6)
-    svg_ = (f'<path class="shadow" d="{shadow}" fill="{C["purple"]}" opacity=".22"/>'
+    svg_ = (f'<path class="shadow" d="{shadow}" fill="{C["aqua"]}" opacity=".22"/>'
             f'<g{"" if smooth else " class=" + chr(34) + "bob" + chr(34)}>{"".join(imgs)}</g>')
     return svg_, " ".join(css)
 
@@ -340,31 +341,31 @@ def banner():
     rnd = random.Random(7)
     b = [f'''<defs>
 <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="{C["bg"]}"/><stop offset="1" stop-color="{C["bg2"]}"/></linearGradient>
-<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{C["purple"]}" stop-opacity=".45"/><stop offset="1" stop-color="{C["purple"]}" stop-opacity="0"/></radialGradient>
-<linearGradient id="line" x1="0" x2="1"><stop offset="0" stop-color="{C["purple"]}"/><stop offset=".6" stop-color="{C["pink"]}"/><stop offset="1" stop-color="{C["pink"]}" stop-opacity="0"/></linearGradient>
+<radialGradient id="glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{C["aqua"]}" stop-opacity=".45"/><stop offset="1" stop-color="{C["aqua"]}" stop-opacity="0"/></radialGradient>
+<linearGradient id="line" x1="0" x2="1"><stop offset="0" stop-color="{C["aqua"]}"/><stop offset=".6" stop-color="{C["shell"]}"/><stop offset="1" stop-color="{C["shell"]}" stop-opacity="0"/></linearGradient>
 </defs>
 <rect width="{W}" height="{H}" rx="22" fill="url(#bg)"/>''']
     # estrellas pixel
     for i in range(80):
         x, y = rnd.randint(10, W - 10), rnd.randint(10, H - 70)
         sz = rnd.choice([2, 2, 3, 4])
-        colr = rnd.choice([C["lav"], C["lav2"], C["pink"], "#ffffff"])
+        colr = rnd.choice([C["lav"], C["lav2"], C["shell"], "#ffffff"])
         tw = f' class="tw" style="animation-delay:{rnd.random() * 2.4:.2f}s"' if i % 3 == 0 else ""
         b.append(f'<rect x="{x}" y="{y}" width="{sz}" height="{sz}" fill="{colr}" opacity="{rnd.uniform(.25, .8):.2f}"{tw}/>')
     # piso synthwave sutil
     for i, y in enumerate([288, 297, 308, 321, 336]):
-        b.append(f'<rect x="0" y="{y}" width="{W}" height="2" fill="{C["purple"]}" opacity="{.10 + i * .03:.2f}"/>')
+        b.append(f'<rect x="0" y="{y}" width="{W}" height="2" fill="{C["aqua"]}" opacity="{.10 + i * .03:.2f}"/>')
     for x in range(-600, 1800, 120):
-        b.append(f'<line x1="{960 + (x - 960) * .25:.0f}" y1="280" x2="{x}" y2="{H}" stroke="{C["purple"]}" stroke-opacity=".12" stroke-width="2" shape-rendering="auto"/>')
+        b.append(f'<line x1="{960 + (x - 960) * .25:.0f}" y1="280" x2="{x}" y2="{H}" stroke="{C["aqua"]}" stroke-opacity=".12" stroke-width="2" shape-rendering="auto"/>')
     b.append(f'<rect x="0" y="278" width="{W}" height="3" fill="url(#line)" opacity=".7"/>')
     # textos
-    b.append(ptext("> HOLA, SOY", 70, 62, 3, C["pink"]))
+    b.append(ptext("> HOLA, SOY", 70, 62, 3, C["shell"]))
     b.append(ptext("PABLO RAMÍREZ", 76, 112, 8, C["deep"]))
     b.append(ptext("PABLO RAMÍREZ", 70, 106, 8, C["text"]))
     sub = "FULL-STACK DEV  //  COMPUTER VISION"
     b.append(ptext(sub, 72, 196, 3, C["lav"]))
     cx = 72 + ptext_w(sub, 3) + 10
-    b.append(f'<rect x="{cx}" y="193" width="12" height="24" fill="{C["pink"]}" class="cursor"/>')
+    b.append(f'<rect x="{cx}" y="193" width="12" height="24" fill="{C["shell"]}" class="cursor"/>')
     # chips
     chips = [("CHIAPAS, MX", C["muted"], None), ("ING. EN SISTEMAS", C["muted"], None),
              ("ABIERTO A PRÁCTICAS", C["green"], C["green"])]
@@ -384,7 +385,7 @@ def banner():
     b.append(f'<ellipse cx="985" cy="150" rx="190" ry="150" fill="url(#glow)"/>')
     m_svg, m_css = mascot(985, 226, 224, "gb")
     b.append(m_svg)
-    b.append(sparkle(830, 60, 5, C["pink"], 0))
+    b.append(sparkle(830, 60, 5, C["shell"], 0))
     b.append(sparkle(1110, 40, 4, C["lav"], .8))
     b.append(sparkle(1130, 190, 5, C["cyan"], 1.4))
     b.append(sparkle(845, 205, 3, C["lav2"], 1.9))
@@ -401,11 +402,11 @@ def mascota():
     m_svg, m_css = mascot(150, 212, 208, "gm")
     name = {"squirtle": "SQUIRTLE", "gengar": "GENGAR"}.get(MASCOTA, "CUBICK")
     b = [f'<rect width="{W}" height="{H}" rx="24" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>',
-         f'<defs><radialGradient id="g" cx=".5" cy=".45" r=".5"><stop offset="0" stop-color="{C["purple"]}" stop-opacity=".35"/>'
-         f'<stop offset="1" stop-color="{C["purple"]}" stop-opacity="0"/></radialGradient></defs>',
+         f'<defs><radialGradient id="g" cx=".5" cy=".45" r=".5"><stop offset="0" stop-color="{C["aqua"]}" stop-opacity=".35"/>'
+         f'<stop offset="1" stop-color="{C["aqua"]}" stop-opacity="0"/></radialGradient></defs>',
          f'<circle cx="150" cy="135" r="125" fill="url(#g)"/>',
          m_svg,
-         sparkle(28, 40, 4, C["pink"], 0), sparkle(250, 70, 4, C["lav"], .9), sparkle(240, 200, 3, C["cyan"], 1.6),
+         sparkle(28, 40, 4, C["shell"], 0), sparkle(250, 70, 4, C["lav"], .9), sparkle(240, 200, 3, C["cyan"], 1.6),
          ptext(name, 150 - ptext_w(name, 3) // 2, 262, 3, C["lav"])]
     save("mascota.svg", svg(W, H, "\n".join(b), CUBE_CSS + m_css))
 
@@ -414,8 +415,8 @@ def mascota():
 def header(name, icon, title, subtitle):
     W, H = 1000, 88
     rows, colors = ICONS[icon]
-    b = [f'<defs><linearGradient id="l" x1="0" x2="1"><stop offset="0" stop-color="{C["purple"]}"/>'
-         f'<stop offset=".5" stop-color="{C["pink"]}"/><stop offset="1" stop-color="{C["pink"]}" stop-opacity="0"/></linearGradient></defs>',
+    b = [f'<defs><linearGradient id="l" x1="0" x2="1"><stop offset="0" stop-color="{C["aqua"]}"/>'
+         f'<stop offset=".5" stop-color="{C["shell"]}"/><stop offset="1" stop-color="{C["shell"]}" stop-opacity="0"/></linearGradient></defs>',
          f'<rect width="{W}" height="{H}" rx="16" fill="{C["card"]}"/>',
          f'<rect x="20" y="16" width="56" height="56" rx="12" fill="{C["card2"]}" stroke="{C["border"]}" stroke-width="2"/>',
          bitmap(rows, 28, 24, 5, colors),
@@ -438,7 +439,7 @@ def wrap(text, maxc):
     return lines + ([cur] if cur else [])
 
 
-def pills(items, x0, y0, maxw, size=15, h=36, gap=10, stroke=C["purple"], fill="none", color=C["lav"], cw=8.1):
+def pills(items, x0, y0, maxw, size=15, h=36, gap=10, stroke=C["aqua"], fill="none", color=C["lav"], cw=8.1):
     out, x, y = [], x0, y0
     for it in items:
         w = len(it) * cw + 30
@@ -454,8 +455,8 @@ def pills(items, x0, y0, maxw, size=15, h=36, gap=10, stroke=C["purple"], fill="
 def bento():
     W, H = 1000, 600
     b = [f'''<defs>
-<linearGradient id="mis" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2a1656"/><stop offset=".55" stop-color="#3b1660"/><stop offset="1" stop-color="#5a1748"/></linearGradient>
-<radialGradient id="blob" cx=".85" cy=".2" r=".6"><stop offset="0" stop-color="{C["pink"]}" stop-opacity=".35"/><stop offset="1" stop-color="{C["pink"]}" stop-opacity="0"/></radialGradient>
+<linearGradient id="mis" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#0e3a45"/><stop offset=".55" stop-color="#14575c"/><stop offset="1" stop-color="#7a4317"/></linearGradient>
+<radialGradient id="blob" cx=".85" cy=".2" r=".6"><stop offset="0" stop-color="{C["shell"]}" stop-opacity=".35"/><stop offset="1" stop-color="{C["shell"]}" stop-opacity="0"/></radialGradient>
 </defs>''']
     # --- STATUS
     b.append(f'<rect x="0" y="0" width="380" height="270" rx="22" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>')
@@ -466,7 +467,7 @@ def bento():
     b.append(f'<text x="30" y="138" font-family="{SANS}" font-size="19" font-weight="600" fill="{C["text"]}">Buscando prácticas / internship</text>')
     for i, t in enumerate(["Chiapas, México", "Ing. en Sistemas · IESCH", "Full-Stack + Computer Vision"]):
         y = 178 + i * 30
-        b.append(f'<rect x="30" y="{y - 11}" width="8" height="8" fill="{C["purple"]}"/>')
+        b.append(f'<rect x="30" y="{y - 11}" width="8" height="8" fill="{C["aqua"]}"/>')
         b.append(f'<text x="50" y="{y}" font-family="{MONO}" font-size="16" fill="{C["muted"]}">{esc(t)}</text>')
     # --- SUPERPODERES
     b.append(f'<rect x="400" y="0" width="600" height="270" rx="22" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>')
@@ -503,10 +504,10 @@ PROJECTS = [
     ("lsm", "02", "hand", "TRADUCTOR LSM", ("IA · TIEMPO REAL", C["cyan"]),
      "Traduce el alfabeto de la Lengua de Señas Mexicana a texto y voz con una cámara web. Lee dos manos a la vez y gestos del rostro.",
      ["Python", "MediaPipe", "OpenCV", "FastAPI"], "visión por computadora"),
-    ("registro", "03", "shield", "REGISTRO Y CONTROL", ("EN DESARROLLO", C["amber"]),
+    ("registro", "03", "shield", "REGISTRO Y CONTROL", ("EN DESARROLLO", C["cream"]),
      "App full-stack para registrar y auditar la entrada de personas y vehículos a un edificio, con bitácora de visitas y gafetes.",
      ["Laravel", "React", "Inertia", "PostgreSQL", "Docker"], "full-stack · MVC"),
-    ("colegio", "04", "build", "PORTAL COLEGIO", ("LÍDER DE EQUIPO", C["pink"]),
+    ("colegio", "04", "build", "PORTAL COLEGIO", ("LÍDER DE EQUIPO", C["shell"]),
      "Portal institucional del Colegio de Ingenieros Civiles de Tuxtla: trámites, servicios y eventos reunidos en un solo lugar.",
      ["React", "Vite", "Framer Motion", "Router"], "equipo de 5 personas"),
 ]
@@ -530,7 +531,7 @@ def project_card(key, num, icon, title, chip, desc, tags, foot):
     b.append(pills(tags, 26, 216, 450, size=13, h=28, gap=8, stroke=C["border"], fill=C["card2"], color=C["lav"], cw=7.2))
     b.append(f'<rect x="26" y="262" width="{W - 52}" height="1.5" fill="{C["border"]}"/>')
     b.append(f'<text x="26" y="290" font-family="{MONO}" font-size="14" fill="{C["muted"]}">{esc(foot)}</text>')
-    b.append(f'<text x="{W - 26}" y="290" text-anchor="end" font-family="{MONO}" font-size="14" font-weight="700" fill="{C["pink"]}">ver repo -&gt;</text>')
+    b.append(f'<text x="{W - 26}" y="290" text-anchor="end" font-family="{MONO}" font-size="14" font-weight="700" fill="{C["shell"]}">ver repo -&gt;</text>')
     save(f"proyecto-{key}.svg", svg(W, H, "\n".join(b)))
 
 
@@ -539,15 +540,15 @@ def footer():
     W, H = 1000, 210
     m_svg, m_css = mascot(146, 168, 168, "gf")
     b = [f'<rect width="{W}" height="{H}" rx="22" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>',
-         f'<defs><radialGradient id="g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{C["purple"]}" stop-opacity=".35"/>'
-         f'<stop offset="1" stop-color="{C["purple"]}" stop-opacity="0"/></radialGradient></defs>',
+         f'<defs><radialGradient id="g" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="{C["aqua"]}" stop-opacity=".35"/>'
+         f'<stop offset="1" stop-color="{C["aqua"]}" stop-opacity="0"/></radialGradient></defs>',
          f'<circle cx="140" cy="100" r="105" fill="url(#g)"/>',
          m_svg,
-         sparkle(40, 30, 3, C["pink"], 0), sparkle(250, 40, 3, C["lav"], 1.1),
+         sparkle(40, 30, 3, C["shell"], 0), sparkle(250, 40, 3, C["lav"], 1.1),
          ptext("¡GRACIAS POR VISITAR!", 290, 66, 5, C["text"]),
          f'<text x="292" y="132" font-family="{MONO}" font-size="19" fill="{C["muted"]}">nos vemos en el próximo commit</text>',
-         f'<rect x="{292 + 30 * 10.5:.0f}" y="116" width="11" height="20" fill="{C["pink"]}" class="cursor"/>',
-         ptext("HECHO EN CHIAPAS, MX", 292, 160, 2, C["purple"])]
+         f'<rect x="{292 + 30 * 10.5:.0f}" y="116" width="11" height="20" fill="{C["shell"]}" class="cursor"/>',
+         ptext("HECHO EN CHIAPAS, MX", 292, 160, 2, C["aqua"])]
     style = CUBE_CSS + m_css + ".cursor{animation:cur 1s steps(1) infinite}@keyframes cur{50%{opacity:0}}"
     save("footer.svg", svg(W, H, "\n".join(b), style))
 

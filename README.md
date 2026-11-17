@@ -5,9 +5,9 @@
 </p>
 
 <p align="center">
-  <img src="https://komarev.com/ghpvc/?username=TheCubick&label=VISITAS&color=8b5cf6&style=for-the-badge" alt="visitas" />
-  <img src="https://img.shields.io/github/followers/TheCubick?label=SEGUIDORES&style=for-the-badge&labelColor=151221&color=8b5cf6" alt="seguidores" />
-  <img src="https://img.shields.io/github/stars/TheCubick?affiliations=OWNER&label=ESTRELLAS&style=for-the-badge&labelColor=151221&color=f472b6" alt="estrellas" />
+  <img src="https://komarev.com/ghpvc/?username=TheCubick&label=VISITAS&color=5fcdbd&style=for-the-badge" alt="visitas" />
+  <img src="https://img.shields.io/github/followers/TheCubick?label=SEGUIDORES&style=for-the-badge&labelColor=0f1c20&color=5fcdbd" alt="seguidores" />
+  <img src="https://img.shields.io/github/stars/TheCubick?affiliations=OWNER&label=ESTRELLAS&style=for-the-badge&labelColor=0f1c20&color=f59e42" alt="estrellas" />
 </p>
 
 <br/>
@@ -39,13 +39,13 @@ Hoy me enfoco en `Full-Stack` y `Computer Vision`, y busco unas **prácticas** d
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/MediaPipe-151221?style=for-the-badge&logo=google&logoColor=c4b5fd" alt="MediaPipe" />
-  <img src="https://img.shields.io/badge/Inertia.js-151221?style=for-the-badge&logo=inertia&logoColor=c4b5fd" alt="Inertia.js" />
-  <img src="https://img.shields.io/badge/Framer_Motion-151221?style=for-the-badge&logo=framer&logoColor=c4b5fd" alt="Framer Motion" />
-  <img src="https://img.shields.io/badge/React_Router-151221?style=for-the-badge&logo=reactrouter&logoColor=c4b5fd" alt="React Router" />
-  <img src="https://img.shields.io/badge/WebSockets-151221?style=for-the-badge&logo=socketdotio&logoColor=c4b5fd" alt="WebSockets" />
-  <img src="https://img.shields.io/badge/PWA-151221?style=for-the-badge&logo=pwa&logoColor=c4b5fd" alt="PWA" />
-  <img src="https://img.shields.io/badge/Render-151221?style=for-the-badge&logo=render&logoColor=c4b5fd" alt="Render" />
+  <img src="https://img.shields.io/badge/MediaPipe-0f1c20?style=for-the-badge&logo=google&logoColor=a6e3d9" alt="MediaPipe" />
+  <img src="https://img.shields.io/badge/Inertia.js-0f1c20?style=for-the-badge&logo=inertia&logoColor=a6e3d9" alt="Inertia.js" />
+  <img src="https://img.shields.io/badge/Framer_Motion-0f1c20?style=for-the-badge&logo=framer&logoColor=a6e3d9" alt="Framer Motion" />
+  <img src="https://img.shields.io/badge/React_Router-0f1c20?style=for-the-badge&logo=reactrouter&logoColor=a6e3d9" alt="React Router" />
+  <img src="https://img.shields.io/badge/WebSockets-0f1c20?style=for-the-badge&logo=socketdotio&logoColor=a6e3d9" alt="WebSockets" />
+  <img src="https://img.shields.io/badge/PWA-0f1c20?style=for-the-badge&logo=pwa&logoColor=a6e3d9" alt="PWA" />
+  <img src="https://img.shields.io/badge/Render-0f1c20?style=for-the-badge&logo=render&logoColor=a6e3d9" alt="Render" />
 </p>
 
 <br/>
@@ -63,7 +63,7 @@ Hoy me enfoco en `Full-Stack` y `Computer Vision`, y busco unas **prácticas** d
 </p>
 
 <p align="center">
-  <a href="https://qrico-web.onrender.com"><img src="https://img.shields.io/badge/PROBAR_Q--RICO_EN_VIVO-34d399?style=for-the-badge&logo=render&logoColor=151221&labelColor=34d399" alt="Probar Q-RICO en vivo" /></a>
+  <a href="https://qrico-web.onrender.com"><img src="https://img.shields.io/badge/PROBAR_Q--RICO_EN_VIVO-4ade80?style=for-the-badge&logo=render&logoColor=0f1c20&labelColor=4ade80" alt="Probar Q-RICO en vivo" /></a>
 </p>
 
 <br/>
@@ -72,16 +72,16 @@ Hoy me enfoco en `Full-Stack` y `Computer Vision`, y busco unas **prácticas** d
 <img src="assets/titulo-stats.svg" width="100%" alt="Actividad" />
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=TheCubick&theme=tokyonight" width="100%" alt="Contribuciones" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/profile-details?username=TheCubick&theme=nord_dark" width="100%" alt="Contribuciones" />
 </p>
 
 <p align="center">
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=TheCubick&theme=tokyonight" height="165" alt="Estadísticas" />
-  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=TheCubick&theme=tokyonight" height="165" alt="Lenguajes" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/stats?username=TheCubick&theme=nord_dark" height="165" alt="Estadísticas" />
+  <img src="https://github-profile-summary-cards.vercel.app/api/cards/most-commit-language?username=TheCubick&theme=nord_dark" height="165" alt="Lenguajes" />
 </p>
 
 <p align="center">
-  <img src="https://streak-stats.demolab.com?user=TheCubick&locale=es&disable_animations=true&background=151221&border=2b2442&stroke=2b2442&ring=8b5cf6&fire=f472b6&currStreakNum=ece8f7&sideNums=ece8f7&currStreakLabel=c4b5fd&sideLabels=c4b5fd&dates=9a93b5" alt="Racha de contribuciones" />
+  <img src="https://streak-stats.demolab.com?user=TheCubick&locale=es&disable_animations=true&background=0f1c20&border=244048&stroke=244048&ring=5fcdbd&fire=f59e42&currStreakNum=e8f6f3&sideNums=e8f6f3&currStreakLabel=a6e3d9&sideLabels=a6e3d9&dates=8fa9ad" alt="Racha de contribuciones" />
 </p>
 
 <br/>
@@ -90,9 +90,9 @@ Hoy me enfoco en `Full-Stack` y `Computer Vision`, y busco unas **prácticas** d
 <img src="assets/titulo-contacto.svg" width="100%" alt="Contacto" />
 
 <p align="center">
-  <a href="mailto:pabloarg120@gmail.com"><img src="https://img.shields.io/badge/pabloarg120@gmail.com-151221?style=for-the-badge&logo=gmail&logoColor=f472b6" alt="Email" /></a>
-  <a href="https://instagram.com/pabrmz_"><img src="https://img.shields.io/badge/@pabrmz__-151221?style=for-the-badge&logo=instagram&logoColor=f472b6" alt="Instagram" /></a>
-  <a href="https://github.com/TheCubick?tab=repositories"><img src="https://img.shields.io/badge/mis_repos-151221?style=for-the-badge&logo=github&logoColor=f472b6" alt="Repositorios" /></a>
+  <a href="mailto:pabloarg120@gmail.com"><img src="https://img.shields.io/badge/pabloarg120@gmail.com-0f1c20?style=for-the-badge&logo=gmail&logoColor=f59e42" alt="Email" /></a>
+  <a href="https://instagram.com/pabrmz_"><img src="https://img.shields.io/badge/@pabrmz__-0f1c20?style=for-the-badge&logo=instagram&logoColor=f59e42" alt="Instagram" /></a>
+  <a href="https://github.com/TheCubick?tab=repositories"><img src="https://img.shields.io/badge/mis_repos-0f1c20?style=for-the-badge&logo=github&logoColor=f59e42" alt="Repositorios" /></a>
 </p>
 
 <p align="center">
