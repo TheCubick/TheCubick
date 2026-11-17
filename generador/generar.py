@@ -1,12 +1,14 @@
 """
 Genera los recursos SVG del perfil de GitHub de TheCubick.
 
-Uso:  python generar.py assets                 (usa a Gengar si existe assets/gengar.gif)
-      python generar.py assets --mascota cubo   (vuelve al cubo "Cubick")
+Uso:  python generar.py assets                    (mascota por defecto: Squirtle)
+      python generar.py assets --mascota gengar    (Gengar, necesita assets/gengar.gif)
+      python generar.py assets --mascota cubo      (el cubo "Cubick")
 Todo es SVG: fuente pixel propia, mascota animada y tarjetas.
 Para cambiar textos o colores, edita este archivo y vuelve a ejecutarlo.
-Para Gengar hace falta Pillow (pip install pillow) y haber generado antes
-assets/gengar.gif con sprite_a_gif.py.
+Para Squirtle y Gengar hace falta Pillow (pip install pillow):
+  - Squirtle: cuadros PNG en generador/squirtle/ (se crean con gif_a_transparente.py)
+  - Gengar:   assets/gengar.gif (se crea con sprite_a_gif.py)
 """
 import base64
 import html
@@ -18,7 +20,14 @@ import sys
 args = [a for a in sys.argv[1:] if not a.startswith("--")]
 OUT = args[0] if args else "assets"
 os.makedirs(OUT, exist_ok=True)
-MASCOTA = "gengar" if os.path.exists(os.path.join(OUT, "gengar.gif")) else "cubo"
+HERE = os.path.dirname(os.path.abspath(__file__))
+SQUIRTLE_DIR = os.path.join(HERE, "squirtle")
+if os.path.isdir(SQUIRTLE_DIR):
+    MASCOTA = "squirtle"
+elif os.path.exists(os.path.join(OUT, "gengar.gif")):
+    MASCOTA = "gengar"
+else:
+    MASCOTA = "cubo"
 if "--mascota" in sys.argv:
     MASCOTA = sys.argv[sys.argv.index("--mascota") + 1]
 
@@ -268,9 +277,29 @@ def load_gengar():
     return _GENGAR
 
 
+def load_squirtle():
+    """Lee los PNG de generador/squirtle/ como base64, con la duración de cada cuadro."""
+    global _SQUIRTLE
+    if _SQUIRTLE is None:
+        from PIL import Image
+        names = sorted(n for n in os.listdir(SQUIRTLE_DIR) if n.endswith(".png"))
+        with open(os.path.join(SQUIRTLE_DIR, "duraciones.txt")) as fh:
+            durs = [int(x) for x in fh.read().split()]
+        frames = []
+        for n, d in zip(names, durs):
+            with open(os.path.join(SQUIRTLE_DIR, n), "rb") as fh:
+                frames.append((base64.b64encode(fh.read()).decode(), d))
+        _SQUIRTLE = (frames, Image.open(os.path.join(SQUIRTLE_DIR, names[0])).size)
+    return _SQUIRTLE
+
+
+_SQUIRTLE = None
+
+
 def gengar(cx, bottom, w, uid):
-    """Gengar animado cuadro por cuadro y flotando. Devuelve (svg, css)."""
-    frames, (gw, gh) = load_gengar()
+    """Mascota en cuadros (Squirtle o Gengar), animada cuadro por cuadro. Devuelve (svg, css)."""
+    smooth = MASCOTA == "squirtle"
+    frames, (gw, gh) = load_squirtle() if smooth else load_gengar()
     h = w * gh / gw
     x, y = cx - w / 2, bottom - h
     total = sum(d for _, d in frames)
@@ -284,17 +313,17 @@ def gengar(cx, bottom, w, uid):
             kf = f"0%{{opacity:0}}{s:.2f}%{{opacity:1}}{e:.2f}%{{opacity:0}}100%{{opacity:0}}"
         css.append(f".{uid}{i}{{animation:{uid}{i} {total / 1000:.2f}s step-end infinite}}@keyframes {uid}{i}{{{kf}}}")
         imgs.append(f'<image class="{uid}{i}" x="{x:.1f}" y="{y:.1f}" width="{w:.1f}" height="{h:.1f}" '
-                    f'opacity="{1 if i == 0 else 0}" style="image-rendering:pixelated" href="data:image/png;base64,{b64}"/>')
+                    f'opacity="{1 if i == 0 else 0}"{"" if smooth else " style=" + chr(34) + "image-rendering:pixelated" + chr(34)} href="data:image/png;base64,{b64}"/>')
     sw = round(w * .5 / 6) * 6
     shadow = rect(cx - sw / 2, bottom + 2, sw, 6) + rect(cx - sw / 2 + 12, bottom + 8, sw - 24, 6)
     svg_ = (f'<path class="shadow" d="{shadow}" fill="{C["purple"]}" opacity=".22"/>'
-            f'<g class="bob">{"".join(imgs)}</g>')
+            f'<g{"" if smooth else " class=" + chr(34) + "bob" + chr(34)}>{"".join(imgs)}</g>')
     return svg_, " ".join(css)
 
 
 def mascot(cx, bottom, w, uid):
     """La mascota elegida: Gengar (GIF) o el cubo pixel art. Devuelve (svg, css)."""
-    if MASCOTA == "gengar":
+    if MASCOTA in ("squirtle", "gengar"):
         return gengar(cx, bottom, w, uid)
     s = round(w / 24)
     return cube(cx - 12 * s, bottom - 22 * s, s), ""
@@ -370,7 +399,7 @@ def banner():
 def mascota():
     W, H = 300, 300
     m_svg, m_css = mascot(150, 212, 208, "gm")
-    name = "GENGAR" if MASCOTA == "gengar" else "CUBICK"
+    name = {"squirtle": "SQUIRTLE", "gengar": "GENGAR"}.get(MASCOTA, "CUBICK")
     b = [f'<rect width="{W}" height="{H}" rx="24" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>',
          f'<defs><radialGradient id="g" cx=".5" cy=".45" r=".5"><stop offset="0" stop-color="{C["purple"]}" stop-opacity=".35"/>'
          f'<stop offset="1" stop-color="{C["purple"]}" stop-opacity="0"/></radialGradient></defs>',

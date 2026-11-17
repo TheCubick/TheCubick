@@ -15,7 +15,7 @@
 <!-- ─────────────────────────── SOBRE MÍ ─────────────────────────── -->
 <img src="assets/titulo-sobre-mi.svg" width="100%" alt="Sobre mí" />
 
-<img src="assets/mascota.svg" align="left" width="230" alt="Gengar animado, mi mascota pixel art" />
+<img src="assets/mascota.svg" align="left" width="230" alt="Squirtle bailando, mi mascota" />
 
 Soy estudiante de `Ingeniería en Sistemas Computacionales` en el **IESCH**, en Tuxtla Gutiérrez, Chiapas. Me gusta llevar los proyectos de clase más allá del aula: convertirlos en algo que la gente de verdad pueda usar.
 
@@ -93,6 +93,10 @@ Hoy me enfoco en `Full-Stack` y `Computer Vision`, y busco unas **prácticas** d
   <a href="mailto:pabloarg120@gmail.com"><img src="https://img.shields.io/badge/pabloarg120@gmail.com-151221?style=for-the-badge&logo=gmail&logoColor=f472b6" alt="Email" /></a>
   <a href="https://instagram.com/pabrmz_"><img src="https://img.shields.io/badge/@pabrmz__-151221?style=for-the-badge&logo=instagram&logoColor=f472b6" alt="Instagram" /></a>
   <a href="https://github.com/TheCubick?tab=repositories"><img src="https://img.shields.io/badge/mis_repos-151221?style=for-the-badge&logo=github&logoColor=f472b6" alt="Repositorios" /></a>
+</p>
+
+<p align="center">
+  <img src="assets/squirtle.gif" width="160" alt="Squirtle bailando" />
 </p>
 
 <br/>
