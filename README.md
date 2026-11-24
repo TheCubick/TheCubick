@@ -61,7 +61,9 @@ Mi base viene de la **programación estructurada y orientada a objetos con `C++`
 </p>
 
 <p align="center">
-  <a href="https://qrico-web.onrender.com"><img src="https://img.shields.io/badge/PROBAR_Q--RICO_EN_VIVO-4ade80?style=for-the-badge&logo=render&logoColor=0f1c20&labelColor=4ade80" alt="Probar Q-RICO en vivo" /></a>
+  <a href="https://qrico-web.onrender.com/"><img src="https://img.shields.io/badge/DEMO-Q--RICO-4ade80?style=for-the-badge&logo=render&logoColor=0f1c20&labelColor=4ade80" alt="Probar Q-RICO en vivo" /></a>
+  <a href="https://proyecto-lsm-five.vercel.app"><img src="https://img.shields.io/badge/DEMO-TRADUCTOR_LSM-4ade80?style=for-the-badge&logo=vercel&logoColor=0f1c20&labelColor=4ade80" alt="Probar el Traductor LSM en vivo" /></a>
+  <a href="https://proyecto-colegio-ing-civiles-web.vercel.app/"><img src="https://img.shields.io/badge/DEMO-PORTAL_COLEGIO-4ade80?style=for-the-badge&logo=vercel&logoColor=0f1c20&labelColor=4ade80" alt="Ver el Portal del Colegio en vivo" /></a>
 </p>
 
 <details>
