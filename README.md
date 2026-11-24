@@ -21,8 +21,6 @@ Soy **Desarrollador Frontend (React)** y estudiante de `Ingeniería en Sistemas 
 
 Mi base viene de la **programación estructurada y orientada a objetos con `C++`** y de la **lógica de negocio y datos en `Visual FoxPro`** (bases relacionales DBF), además de `PHP / Laravel`, `Python` y SQL (`MySQL`, `PostgreSQL`, `Supabase`). Esa mezcla me permite entender tanto la capa visual como el sistema que la sostiene.
 
-Busco una vacante **Frontend Jr.** con disponibilidad **presencial por las tardes**, y me interesa crecer hacia el ecosistema `C#` · `.NET` · `Dynamics 365 Business Central`.
-
 <br clear="left"/>
 
 <p align="center">
