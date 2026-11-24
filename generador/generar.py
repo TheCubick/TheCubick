@@ -362,13 +362,13 @@ def banner():
     b.append(ptext("> HOLA, SOY", 70, 62, 3, C["shell"]))
     b.append(ptext("PABLO RAMÍREZ", 76, 112, 8, C["deep"]))
     b.append(ptext("PABLO RAMÍREZ", 70, 106, 8, C["text"]))
-    sub = "FULL-STACK DEV  //  COMPUTER VISION"
+    sub = "FRONTEND DEV  //  REACT"
     b.append(ptext(sub, 72, 196, 3, C["lav"]))
     cx = 72 + ptext_w(sub, 3) + 10
     b.append(f'<rect x="{cx}" y="193" width="12" height="24" fill="{C["shell"]}" class="cursor"/>')
     # chips
     chips = [("CHIAPAS, MX", C["muted"], None), ("ING. EN SISTEMAS", C["muted"], None),
-             ("ABIERTO A PRÁCTICAS", C["green"], C["green"])]
+             ("DISPONIBLE TARDES", C["green"], C["green"])]
     x = 72
     for label, colr, dot in chips:
         tw = ptext_w(label, 2)
@@ -464,8 +464,8 @@ def bento():
     b.append(f'<rect x="30" y="78" width="16" height="16" fill="{C["green"]}" class="pulse"/>')
     b.append(f'<rect x="26" y="74" width="24" height="24" fill="none" stroke="{C["green"]}" stroke-width="2" opacity=".4" class="pulse"/>')
     b.append(ptext("DISPONIBLE", 64, 72, 4, C["green"]))
-    b.append(f'<text x="30" y="138" font-family="{SANS}" font-size="19" font-weight="600" fill="{C["text"]}">Buscando prácticas / internship</text>')
-    for i, t in enumerate(["Chiapas, México", "Ing. en Sistemas · IESCH", "Full-Stack + Computer Vision"]):
+    b.append(f'<text x="30" y="138" font-family="{SANS}" font-size="19" font-weight="600" fill="{C["text"]}">Buscando vacante Frontend Jr.</text>')
+    for i, t in enumerate(["Chiapas, México", "Ing. en Sistemas · IESCH", "React + bases en C++ y FoxPro"]):
         y = 178 + i * 30
         b.append(f'<rect x="30" y="{y - 11}" width="8" height="8" fill="{C["aqua"]}"/>')
         b.append(f'<text x="50" y="{y}" font-family="{MONO}" font-size="16" fill="{C["muted"]}">{esc(t)}</text>')
@@ -473,8 +473,8 @@ def bento():
     b.append(f'<rect x="400" y="0" width="600" height="270" rx="22" fill="{C["card"]}" stroke="{C["border"]}" stroke-width="2"/>')
     b.append(ptext("SUPERPODERES", 430, 32, 3, C["muted"]))
     b.append(bitmap(ICONS["spark"][0], 940, 26, 4, ICONS["spark"][1]))
-    b.append(pills(["Full-Stack", "Visión por computadora", "Liderazgo de equipos", "Arquitectura de software",
-                    "Sistemas en tiempo real", "UI / UX", "Producto digital", "Docker"], 430, 74, 540))
+    b.append(pills(["React 19", "JavaScript ES6+", "UI / UX", "Accesibilidad", "POO con C++", "Visual FoxPro",
+                    "SQL · Supabase", "Liderazgo de equipos"], 430, 74, 540))
     # --- MISIÓN
     b.append(f'<rect x="0" y="290" width="1000" height="310" rx="22" fill="url(#mis)"/>')
     b.append(f'<rect x="0" y="290" width="1000" height="310" rx="22" fill="url(#blob)"/>')
@@ -483,7 +483,7 @@ def bento():
              f'La tecnología solo es buena si llega a todos.</text>')
     cols = [("hand", "ACCESIBILIDAD", "IA que traduce la Lengua", "de Señas Mexicana"),
             ("qr", "NEGOCIOS LOCALES", "SaaS para restaurantes", "sin cobrar comisiones"),
-            ("build", "INSTITUCIONES", "Trámites y accesos,", "por fin digitales")]
+            ("build", "INSTITUCIONES", "Portal del Colegio de", "Ingenieros Civiles")]
     for i, (ic, t, l1, l2) in enumerate(cols):
         x = 30 + i * 320
         b.append(f'<rect x="{x}" y="440" width="300" height="130" rx="16" fill="#ffffff" fill-opacity=".06" stroke="#ffffff" stroke-opacity=".12" stroke-width="2"/>')
@@ -498,18 +498,18 @@ def bento():
 
 # ======================================================= TARJETAS PROYECTO
 PROJECTS = [
-    ("qrico", "01", "qr", "Q-RICO", ("EN PRODUCCIÓN", C["green"]),
+    ("colegio", "01", "build", "PORTAL CICTGZ", ("LÍDER DE PROYECTO", C["shell"]),
+     "Portal institucional del Colegio de Ingenieros Civiles de Tuxtla con panel admin en tiempo real. Interfaz de alto contraste pensada para móvil.",
+     ["React 19", "Vite", "Supabase", "React Router"], "frontend + panel /admin"),
+    ("qrico", "02", "qr", "Q-RICO", ("EN PRODUCCIÓN", C["green"]),
      "SaaS de menús QR para restaurantes. El comensal pide desde su mesa sin instalar nada y el pedido llega al instante a cocina, caja y piso.",
-     ["JavaScript", "PWA", "POS / KDS", "Tiempo real"], "qrico-web.onrender.com"),
-    ("lsm", "02", "hand", "TRADUCTOR LSM", ("IA · TIEMPO REAL", C["cyan"]),
-     "Traduce el alfabeto de la Lengua de Señas Mexicana a texto y voz con una cámara web. Lee dos manos a la vez y gestos del rostro.",
-     ["Python", "MediaPipe", "OpenCV", "FastAPI"], "visión por computadora"),
-    ("registro", "03", "shield", "REGISTRO Y CONTROL", ("EN DESARROLLO", C["cream"]),
+     ["JavaScript ES6+", "PWA", "POS / KDS", "Tiempo real"], "qrico-web.onrender.com"),
+    ("lsm", "03", "hand", "TRADUCTOR LSM", ("IA · TIEMPO REAL", C["cyan"]),
+     "Traduce el alfabeto de la Lengua de Señas Mexicana a texto y voz con una cámara web. Corre también en el navegador como PWA.",
+     ["Python", "MediaPipe", "FastAPI", "JavaScript"], "visión por computadora"),
+    ("registro", "04", "shield", "REGISTRO Y CONTROL", ("EN DESARROLLO", C["cream"]),
      "App full-stack para registrar y auditar la entrada de personas y vehículos a un edificio, con bitácora de visitas y gafetes.",
-     ["Laravel", "React", "Inertia", "PostgreSQL", "Docker"], "full-stack · MVC"),
-    ("colegio", "04", "build", "PORTAL COLEGIO", ("LÍDER DE EQUIPO", C["shell"]),
-     "Portal institucional del Colegio de Ingenieros Civiles de Tuxtla: trámites, servicios y eventos reunidos en un solo lugar.",
-     ["React", "Vite", "Framer Motion", "Router"], "equipo de 5 personas"),
+     ["Laravel", "PHP", "React", "PostgreSQL"], "full-stack · MVC"),
 ]
 
 

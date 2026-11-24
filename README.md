@@ -1,7 +1,7 @@
 <!-- Arte y tarjetas: carpeta assets/ (se generan con generador/generar.py) -->
 
 <p align="center">
-  <img src="assets/banner.svg" width="100%" alt="Pablo Ramírez · Full-Stack Dev // Computer Vision" />
+  <img src="assets/banner.svg" width="100%" alt="Pablo Ramírez · Frontend Dev // React" />
 </p>
 
 <p align="center">
@@ -17,11 +17,11 @@
 
 <img src="assets/mascota.svg" align="left" width="230" alt="Squirtle bailando, mi mascota" />
 
-Soy estudiante de `Ingeniería en Sistemas Computacionales` en el **IESCH**, en Tuxtla Gutiérrez, Chiapas. Me gusta llevar los proyectos de clase más allá del aula: convertirlos en algo que la gente de verdad pueda usar.
+Soy **Desarrollador Frontend (React)** y estudiante de `Ingeniería en Sistemas Computacionales` en el **IESCH** (7.º semestre, promedio superior a 9.5), en Tuxtla Gutiérrez, Chiapas. Construyo interfaces claras, accesibles y pensadas para quien realmente las usa: desde un portal institucional con panel de administración hasta un SaaS para restaurantes en producción.
 
-Así nació **Q-RICO**, un `SaaS para restaurantes` que hoy está en producción, y un traductor de **Lengua de Señas Mexicana** que usa `visión por computadora` para que más personas puedan comunicarse. He liderado equipos de desarrollo, y disfruto tanto diseñar la arquitectura como cuidar cada detalle de la interfaz.
+Mi base viene de la **programación estructurada y orientada a objetos con `C++`** y de la **lógica de negocio y datos en `Visual FoxPro`** (bases relacionales DBF), además de `PHP / Laravel`, `Python` y SQL (`MySQL`, `PostgreSQL`, `Supabase`). Esa mezcla me permite entender tanto la capa visual como el sistema que la sostiene.
 
-Hoy me enfoco en `Full-Stack` y `Computer Vision`, y busco unas **prácticas** donde pueda aprender a construir software a gran escala.
+Busco una vacante **Frontend Jr.** con disponibilidad **presencial por las tardes**, y me interesa crecer hacia el ecosistema `C#` · `.NET` · `Dynamics 365 Business Central`.
 
 <br clear="left"/>
 
@@ -35,15 +35,15 @@ Hoy me enfoco en `Full-Stack` y `Computer Vision`, y busco unas **prácticas** d
 <img src="assets/titulo-stack.svg" width="100%" alt="Stack" />
 
 <p align="center">
-  <img src="https://skillicons.dev/icons?i=react,vite,tailwind,html,css,js,laravel,php,python,fastapi,postgres,opencv,docker,linux,cpp,git,github,vscode&perline=9&theme=dark" alt="React, Vite, Tailwind, HTML, CSS, JavaScript, Laravel, PHP, Python, FastAPI, PostgreSQL, OpenCV, Docker, Linux, C++, Git, GitHub, VS Code" />
+  <img src="https://skillicons.dev/icons?i=react,vite,tailwind,html,css,js,cpp,php,laravel,python,mysql,postgres,supabase,linux,git,github,vercel,vscode&perline=9&theme=dark" alt="React, Vite, Tailwind, HTML, CSS, JavaScript, C++, PHP, Laravel, Python, MySQL, PostgreSQL, Supabase, Linux, Git, GitHub, Vercel, VS Code" />
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/MediaPipe-0f1c20?style=for-the-badge&logo=google&logoColor=a6e3d9" alt="MediaPipe" />
-  <img src="https://img.shields.io/badge/Inertia.js-0f1c20?style=for-the-badge&logo=inertia&logoColor=a6e3d9" alt="Inertia.js" />
-  <img src="https://img.shields.io/badge/Framer_Motion-0f1c20?style=for-the-badge&logo=framer&logoColor=a6e3d9" alt="Framer Motion" />
+  <img src="https://img.shields.io/badge/Visual_FoxPro-0f1c20?style=for-the-badge&logoColor=a6e3d9" alt="Visual FoxPro" />
   <img src="https://img.shields.io/badge/React_Router-0f1c20?style=for-the-badge&logo=reactrouter&logoColor=a6e3d9" alt="React Router" />
-  <img src="https://img.shields.io/badge/WebSockets-0f1c20?style=for-the-badge&logo=socketdotio&logoColor=a6e3d9" alt="WebSockets" />
+  <img src="https://img.shields.io/badge/Framer_Motion-0f1c20?style=for-the-badge&logo=framer&logoColor=a6e3d9" alt="Framer Motion" />
+  <img src="https://img.shields.io/badge/Accesibilidad-WCAG_2.2_AA-0f1c20?style=for-the-badge&logoColor=a6e3d9" alt="Accesibilidad WCAG 2.2 AA" />
+  <img src="https://img.shields.io/badge/MediaPipe-0f1c20?style=for-the-badge&logo=google&logoColor=a6e3d9" alt="MediaPipe" />
   <img src="https://img.shields.io/badge/PWA-0f1c20?style=for-the-badge&logo=pwa&logoColor=a6e3d9" alt="PWA" />
   <img src="https://img.shields.io/badge/Render-0f1c20?style=for-the-badge&logo=render&logoColor=a6e3d9" alt="Render" />
 </p>
@@ -54,17 +54,38 @@ Hoy me enfoco en `Full-Stack` y `Computer Vision`, y busco unas **prácticas** d
 <img src="assets/titulo-proyectos.svg" width="100%" alt="Proyectos" />
 
 <p align="center">
+  <a href="https://github.com/TheCubick/Proyecto_colegio-ing-civiles-web"><img src="assets/proyecto-colegio.svg" width="49%" alt="Portal CICTGZ, Colegio de Ingenieros Civiles de Tuxtla Gutiérrez" /></a>
   <a href="https://github.com/TheCubick/Qrico_web"><img src="assets/proyecto-qrico.svg" width="49%" alt="Q-RICO" /></a>
-  <a href="https://github.com/TheCubick/Proyecto-Lenguaje-de-senas-mexicanas"><img src="assets/proyecto-lsm.svg" width="49%" alt="Traductor LSM" /></a>
 </p>
 <p align="center">
+  <a href="https://github.com/TheCubick/Proyecto-Lenguaje-de-senas-mexicanas"><img src="assets/proyecto-lsm.svg" width="49%" alt="Traductor de Lengua de Señas Mexicana" /></a>
   <a href="https://github.com/TheCubick/Proyecto-Registro-y-control"><img src="assets/proyecto-registro.svg" width="49%" alt="Registro y Control" /></a>
-  <a href="https://github.com/TheCubick/Proyecto_colegio-ing-civiles-web"><img src="assets/proyecto-colegio.svg" width="49%" alt="Portal Colegio de Ingenieros Civiles" /></a>
 </p>
 
 <p align="center">
   <a href="https://qrico-web.onrender.com"><img src="https://img.shields.io/badge/PROBAR_Q--RICO_EN_VIVO-4ade80?style=for-the-badge&logo=render&logoColor=0f1c20&labelColor=4ade80" alt="Probar Q-RICO en vivo" /></a>
 </p>
+
+<details>
+<summary><b>Qué construí en cada proyecto</b></summary>
+
+<br/>
+
+**Portal CICTGZ** · `React 19` · `Vite` · `React Router` · `Supabase`
+- Arquitectura híbrida: contenido normativo en módulos locales y noticias, cursos y asambleas desde un panel `/admin` conectado a Supabase (PostgreSQL, Storage y Auth), con contenido de respaldo si no hay conexión.
+- Sistema de diseño en CSS puro, alto contraste y tipografía de 18 px para un público adulto que navega desde el teléfono; carruseles táctiles con `scroll-snap`.
+- Flujo de equipo con Pull Requests y verificación automática (lint, build y reglas del proyecto) en GitHub Actions.
+
+**Q-RICO** · `JavaScript ES6+` · `PWA` · `Render`
+- Menú QR para el comensal, panel con POS, monitor de cocina (KDS) y mapa de mesas, sincronizados en tiempo real con un store reactivo propio sobre `BroadcastChannel`.
+- Sanitización de datos contra XSS, validación del estado y de sesión, y cabeceras de seguridad HTTP.
+- Sin framework ni paso de compilación: HTML semántico, design tokens en CSS y APIs nativas del navegador.
+
+**Traductor LSM** · `Python` · `MediaPipe` · `FastAPI` · `JavaScript`
+- Reconoce el alfabeto de la Lengua de Señas Mexicana, frases con movimiento y gestos del rostro con una cámara web, y lo convierte en texto y voz.
+- Motor portado a JavaScript para correr en el navegador (Vercel) como PWA instalable, con 0 diferencias frente al motor de Python en 3 976 fotogramas de prueba.
+
+</details>
 
 <br/>
 
